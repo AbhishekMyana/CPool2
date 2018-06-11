@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "706242394772",
+    "firebase_url": "https://cpool-be610.firebaseio.com",
+    "project_id": "cpool-be610",
+    "storage_bucket": "cpool-be610.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706242394772:android:d59a2562015e5e4c",
+        "android_client_info": {
+          "package_name": "com.example.dhanuja.cpool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706242394772-mlht6ulf79cd72j9dca72q6dr61f350d.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "706242394772-mlht6ulf79cd72j9dca72q6dr61f350d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmwLbRc6tLt7W6kNC9MSPmzDxT0ZxXAO4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

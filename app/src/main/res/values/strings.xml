@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CPool</string>
+    <string name="welcome_to_cpool">Welcome to CPool</string>
+    <string name="have_an_account_get_started">Have an Account ? Get Started !</string>
+    <string name="login">LOGIN</string>
+    <string name="new_to_cpool">New to CPool ?</string>
+    <string name="signup">SIGNUP</string>
+    <string name="lets_login">Lets Login</string>
+    <string name="enter_your_details">Enter your Details</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="new_password">New Password</string>
+    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="register">REGISTER</string>
+    <string name="username">Username</string>
+</resources>
