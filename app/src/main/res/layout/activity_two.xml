@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.068" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/usernametxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -36,7 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.134" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/passwordtxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="188dp"
@@ -62,11 +62,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.568"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/usernametxt"
         app:layout_constraintVertical_bias="0.09" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/enterbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -78,8 +78,27 @@
         android:text="ENTER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordtxt"
+        app:layout_constraintVertical_bias="0.185" />
+
+    <TextView
+        android:id="@+id/infotxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text=" Number of attempts remaining:"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.663"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterbtn"
+        app:layout_constraintVertical_bias="0.367" />
 </android.support.constraint.ConstraintLayout>
