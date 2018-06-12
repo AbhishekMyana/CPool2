@@ -14,4 +14,7 @@
     <string name="re_enter_password">Re-Enter Password</string>
     <string name="register">REGISTER</string>
     <string name="username">Username</string>
+    <string name="profile">Profile</string>
+    <string name="history">History</string>
+    <string name="log_out">Log Out</string>
 </resources>
