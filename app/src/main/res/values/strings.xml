@@ -17,4 +17,18 @@
     <string name="profile">Profile</string>
     <string name="history">History</string>
     <string name="log_out">Log Out</string>
+    <string name="your_profile">Your Profile</string>
+    <string name="yourname">Name</string>
+    <string name="emailid">Email</string>
+    <string name="phone">Phone</string>
+    <string name="your_name">Your Name</string>
+    <string name="email_id">Email Id</string>
+    <string name="mobile">Mobile</string>
+    <string name="emailadd">Email</string>
+    <string name="password">Password</string>
+    <string name="enter">ENTER</string>
+    <string name="number_of_attempts_remaining">Number of attempts remaining:</string>
+    <string name="let_s_login">LET\'S LOGIN</string>
+    <string name="login_1">LOGIN</string>
+    <string name="welcome">WELCOME</string>
 </resources>

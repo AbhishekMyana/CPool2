@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id==R.id.profileclk){
-            Toast.makeText(this,"Profile Page is not yet Created",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(HomeActivity.this , ProfileActivity.class));
         }
 
         if(id==R.id.historyclk){
