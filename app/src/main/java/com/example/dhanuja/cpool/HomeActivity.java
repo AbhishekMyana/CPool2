@@ -6,18 +6,48 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+    private Button chatdv;
+
+    Spinner source;
+    Spinner destination;
+    String [] sourceloc = {"VJTI","Dadar","Wadala","Matunga"};
+    String [] destloc = {"VJTI","Dadar","Wadala","Matunga"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        source = (Spinner)findViewById(R.id.source);
+        destination = (Spinner)findViewById(R.id.destination);
+        chatdv = (Button)findViewById(R.id.chatdvbtn);
+
+        ArrayAdapter<String> adapters = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item , sourceloc);
+        source.setAdapter(adapters);
+
+        ArrayAdapter<String> adapterd = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item , destloc);
+        destination.setAdapter(adapterd);
+
+        chatdv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, ChatdvActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -51,4 +81,5 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

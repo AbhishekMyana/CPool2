@@ -31,4 +31,10 @@
     <string name="let_s_login">LET\'S LOGIN</string>
     <string name="login_1">LOGIN</string>
     <string name="welcome">WELCOME</string>
+    <string name="home">HOME</string>
+    <string name="signup1">SIGNUP</string>
+    <string name="message">Message....</string>
+    <string name="sending_time">Sending Time</string>
+    <string name="message_sender">Message Sender</string>
+    <string name="message_content">Message Content</string>
 </resources>
