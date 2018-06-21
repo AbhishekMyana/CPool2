@@ -22,8 +22,9 @@ import com.google.firebase.database.Query;
 public class ChatdvActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
-    private FirebaseListAdapter adapter;
+    private FirebaseListAdapter<ChatMessage> adapter;
     private ListView listOfMessage;
+    
 
 
     @Override
