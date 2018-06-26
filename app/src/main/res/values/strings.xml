@@ -37,4 +37,5 @@
     <string name="sending_time">Sending Time</string>
     <string name="message_sender">Message Sender</string>
     <string name="message_content">Message Content</string>
+    <string name="message01">Message</string>
 </resources>

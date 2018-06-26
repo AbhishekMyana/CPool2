@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.text.format.DateFormat;
 
+import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -24,8 +25,10 @@ public class ChatdvActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private FirebaseListAdapter<ChatMessage> adapter;
     private ListView listOfMessage;
-    
-
+    private Firebase mRef;
+    private TextView messageText, messageUser, messageTime;
+    private FirebaseListOptions<ChatMessage> options;
+    private Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,13 @@ public class ChatdvActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText input = (EditText)findViewById(R.id.input);
-                FirebaseDatabase.getInstance().getReference().push().setValue(new ChatMessage(input.getText().toString(),
+                FirebaseDatabase.getInstance().getReference("ChatdvActivity").push().setValue(new ChatMessage(input.getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getEmail()));
 
                 input.setText("");
             }
         });
+
 
         displayChatMessage();
 
@@ -53,20 +57,20 @@ public class ChatdvActivity extends AppCompatActivity {
 
         listOfMessage = (ListView) findViewById(R.id.list_of_messages);
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("chats");
+        query = FirebaseDatabase.getInstance().getReference("ChatdvActivity").child("messageText").child("messageUser").child("messageTime");
 
-        FirebaseListOptions<ChatMessage> options =
-                new FirebaseListOptions.Builder<ChatMessage>()
-                        .setQuery(query, ChatMessage.class)
-                        .setLayout(android.R.layout.simple_list_item_1)
-                        .build();
+        options = new FirebaseListOptions.Builder<ChatMessage>()
+                .setQuery(query, ChatMessage.class)
+                .setLayout(android.R.layout.simple_list_item_1)
+                .build();
+
         adapter = new FirebaseListAdapter<ChatMessage>(options){
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
-                TextView messageText, messageUser, messageTime;
-                messageText = (TextView) findViewById(R.id.message_text);
-                messageUser = (TextView) findViewById(R.id.message_user);
-                messageTime = (TextView) findViewById(R.id.message_time);
+
+                messageText = (TextView) v.findViewById(R.id.message_text);
+                messageUser = (TextView) v.findViewById(R.id.message_user);
+                messageTime = (TextView) v.findViewById(R.id.message_time);
 
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getMessageUser());
@@ -86,9 +90,7 @@ public class ChatdvActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (adapter != null) {
-            adapter.stopListening();
-        }
-        }
+        adapter.stopListening();
+    }
 
 }

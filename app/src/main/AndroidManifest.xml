@@ -25,7 +25,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ChatdvActivity"></activity>
+        <activity android:name=".ChatdvActivity" />
+        <activity android:name=".ChatmvActivity"></activity>
     </application>
 
 </manifest>
