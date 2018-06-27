@@ -1,34 +1,48 @@
 package com.example.dhanuja.cpool;
 
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.text.format.DateFormat;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class ChatdvActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
-    private FirebaseListAdapter<ChatMessage> adapter;
     private ListView listOfMessage;
     private Firebase mRef;
     private TextView messageText, messageUser, messageTime;
     private FirebaseListOptions<ChatMessage> options;
     private Query query;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase ;
+    ArrayList<String> list ;
+    ArrayAdapter<String> adapter;
+    DatabaseReference dref;
+    ChatMessage chatMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +51,26 @@ public class ChatdvActivity extends AppCompatActivity {
 
 
         fab = (FloatingActionButton)findViewById(R.id.fabbtn);
+        messageText = (TextView) findViewById(R.id.message_text);
+        messageUser = (TextView) findViewById(R.id.message_user);
+        messageTime = (TextView) findViewById(R.id.message_time);
+        listOfMessage = (ListView) findViewById(R.id.list_of_messages);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        dref = firebaseDatabase.getReference("ChatdvActivity");
+        list = new ArrayList<>();
+
+        adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_text,list);
+        adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_user,list);
+
+
+        listOfMessage.setAdapter(adapter);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,49 +82,29 @@ public class ChatdvActivity extends AppCompatActivity {
             }
         });
 
+        chatMessage = new ChatMessage();
 
-        displayChatMessage();
-
-    }
-
-    private void displayChatMessage(){
-
-        listOfMessage = (ListView) findViewById(R.id.list_of_messages);
-
-        query = FirebaseDatabase.getInstance().getReference("ChatdvActivity").child("messageText").child("messageUser").child("messageTime");
-
-        options = new FirebaseListOptions.Builder<ChatMessage>()
-                .setQuery(query, ChatMessage.class)
-                .setLayout(android.R.layout.simple_list_item_1)
-                .build();
-
-        adapter = new FirebaseListAdapter<ChatMessage>(options){
+        dref.addValueEventListener(new ValueEventListener() {
             @Override
-            protected void populateView(View v, ChatMessage model, int position) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                messageText = (TextView) v.findViewById(R.id.message_text);
-                messageUser = (TextView) v.findViewById(R.id.message_user);
-                messageTime = (TextView) v.findViewById(R.id.message_time);
+                for(DataSnapshot ds:dataSnapshot.getChildren())
+                {
+                    chatMessage = ds.getValue(ChatMessage.class);
+                    list.add(chatMessage.getMessageUser().toString() + " : \n" +chatMessage.getMessageText().toString());
 
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH-mm-ss)", model.getMessageTime()));
+                }
+                listOfMessage.setAdapter(adapter);
 
             }
-        };
-        listOfMessage.setAdapter(adapter);
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ChatdvActivity.this,databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
 
 }
