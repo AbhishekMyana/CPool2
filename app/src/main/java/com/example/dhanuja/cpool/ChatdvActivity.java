@@ -1,5 +1,6 @@
 package com.example.dhanuja.cpool;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.awt.font.TextAttribute;
+import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -34,7 +39,7 @@ public class ChatdvActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private ListView listOfMessage;
     private Firebase mRef;
-    private TextView messageText, messageUser, messageTime;
+    private TextView messageText, messageUser, messageTime,sendTime;
     private FirebaseListOptions<ChatMessage> options;
     private Query query;
     private FirebaseAuth firebaseAuth;
@@ -53,7 +58,7 @@ public class ChatdvActivity extends AppCompatActivity {
         fab = (FloatingActionButton)findViewById(R.id.fabbtn);
         messageText = (TextView) findViewById(R.id.message_text);
         messageUser = (TextView) findViewById(R.id.message_user);
-        messageTime = (TextView) findViewById(R.id.message_time);
+        sendTime = (TextView) findViewById(R.id.message_time);
         listOfMessage = (ListView) findViewById(R.id.list_of_messages);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -66,6 +71,7 @@ public class ChatdvActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_text,list);
         adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_user,list);
+        adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_time,list);
 
 
         listOfMessage.setAdapter(adapter);
@@ -88,12 +94,17 @@ public class ChatdvActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                list.clear();
+                adapter.notifyDataSetChanged();
+
                 for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
+
                     chatMessage = ds.getValue(ChatMessage.class);
-                    list.add(chatMessage.getMessageUser().toString() + " : \n" +chatMessage.getMessageText().toString());
+                    list.add(chatMessage.getMessageUser().toString()  + " :                                           \n "+chatMessage.getMessageText().toString()+"                                                        \n                                                            "+chatMessage.getSendTime().toString());
 
                 }
+
                 listOfMessage.setAdapter(adapter);
 
             }
@@ -104,6 +115,10 @@ public class ChatdvActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void clearData(){
+        list.clear();
     }
 
 
