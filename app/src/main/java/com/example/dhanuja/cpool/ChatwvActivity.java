@@ -155,7 +155,7 @@ public class ChatwvActivity extends AppCompatActivity {
         Toast.makeText(ChatwvActivity.this,"You have entered the Chatroom", Toast.LENGTH_SHORT).show();
 
     }
-
+//comment
     @Override
     public void onStop(){
         FirebaseAuth firebaseAuthwv = FirebaseAuth.getInstance();
