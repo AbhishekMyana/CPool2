@@ -2,6 +2,7 @@ package com.example.dhanuja.cpool;
 
 import android.text.format.DateFormat;
 
+import java.text.AttributedString;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ public class ChatMessage {
 
         messageTime = new Date().getTime();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
         Date now = new Date();
         sendTime = simpleDateFormat.format(now);
 

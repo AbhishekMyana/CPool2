@@ -38,4 +38,9 @@
     <string name="message_sender">Message Sender</string>
     <string name="message_content">Message Content</string>
     <string name="message01">Message</string>
+    <string name="next">NEXT</string>
+    <string name="your_journey">Your Journey</string>
+    <string name="please_select_your_current_location">Please Select Your Current Location</string>
+    <string name="please_select_your_destination">Please Select Your Destination</string>
+    <string name="time">Time</string>
 </resources>
