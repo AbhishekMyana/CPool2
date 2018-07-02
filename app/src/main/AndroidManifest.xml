@@ -6,6 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -26,7 +27,11 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".ChatdvActivity" />
-        <activity android:name=".ChatmvActivity"></activity>
+        <activity android:name=".ChatmvActivity" />
+        <activity android:name=".ChatwvActivity" />
+        <activity android:name=".ChatvdActivity" />
+        <activity android:name=".ChatvwActivity" />
+        <activity android:name=".ChatvmActivity"></activity>
     </application>
 
 </manifest>

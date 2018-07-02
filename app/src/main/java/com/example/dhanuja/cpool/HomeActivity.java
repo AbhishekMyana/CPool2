@@ -87,9 +87,28 @@ public class HomeActivity extends AppCompatActivity {
                     Intent intent = new Intent(HomeActivity.this, ChatdvActivity.class);
                     startActivity(intent);
                 }
-
+                else if(chosens.equals(sourceloc[2]) && chosend.equals(destloc[0])){
+                    Intent intent = new Intent(HomeActivity.this, ChatwvActivity.class);
+                    startActivity(intent);
+                }
+                else if(chosens.equals(sourceloc[3]) && chosend.equals(destloc[0])){
+                    Intent intent = new Intent(HomeActivity.this, ChatmvActivity.class);
+                    startActivity(intent);
+                }
+                else if(chosens.equals(sourceloc[0]) && chosend.equals(destloc[1])){
+                    Intent intent = new Intent(HomeActivity.this, ChatvdActivity.class);
+                    startActivity(intent);
+                }
+                else if(chosens.equals(sourceloc[0]) && chosend.equals(destloc[2])){
+                    Intent intent = new Intent(HomeActivity.this, ChatvwActivity.class);
+                    startActivity(intent);
+                }
+                else if(chosens.equals(sourceloc[0]) && chosend.equals(destloc[3])){
+                    Intent intent = new Intent(HomeActivity.this, ChatvmActivity.class);
+                    startActivity(intent);
+                }
                 else {
-                    Toast.makeText(HomeActivity.this, chosens + chosend, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomeActivity.this,"The chosen Source-Destination pair is invalid", Toast.LENGTH_SHORT).show();
                 }
             }
         });

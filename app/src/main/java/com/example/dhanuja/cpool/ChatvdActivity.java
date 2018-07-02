@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ChatmvActivity extends AppCompatActivity {
+public class ChatvdActivity extends AppCompatActivity {
 
     ImageButton send;
     private ListView listOfMessage;
@@ -37,7 +37,7 @@ public class ChatmvActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chatmv);
+        setContentView(R.layout.activity_chatvd);
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -53,10 +53,10 @@ public class ChatmvActivity extends AppCompatActivity {
 
 //Active Users display - START
         FirebaseAuth firebaseAuthdv = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabasemv = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReferencemv = firebaseDatabasemv.getReference("ActivemvUsers");
+        FirebaseDatabase firebaseDatabasevd = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReferencevd = firebaseDatabasevd.getReference("ActivevdUsers");
 
-        databaseReferencemv.addValueEventListener(new ValueEventListener() {
+        databaseReferencevd.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ActiveUsers activeUsers = dataSnapshot.getValue(ActiveUsers.class);
@@ -66,14 +66,14 @@ public class ChatmvActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ChatmvActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatvdActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
 //Active Users display - END
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        dref = firebaseDatabase.getReference("ChatmvActivity");
+        dref = firebaseDatabase.getReference("ChatvdActivity");
         list = new ArrayList<>();
 
         adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_text,list);
@@ -86,7 +86,7 @@ public class ChatmvActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText input = (EditText)findViewById(R.id.input);
-                FirebaseDatabase.getInstance().getReference("ChatmvActivity").push().setValue(new ChatMessage(input.getText().toString(),
+                FirebaseDatabase.getInstance().getReference("ChatvdActivity").push().setValue(new ChatMessage(input.getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getEmail()));
 
                 input.setText("");
@@ -122,7 +122,7 @@ public class ChatmvActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ChatmvActivity.this,databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatvdActivity.this,databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -131,39 +131,37 @@ public class ChatmvActivity extends AppCompatActivity {
     @Override
     public void onStart(){
 
-        FirebaseAuth firebaseAuthdv = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabasemv = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReferencemv = firebaseDatabasemv.getReference("ActivemvUsers");
+        FirebaseAuth firebaseAuthvd = FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabasevd = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReferencevd = firebaseDatabasevd.getReference("ActivevdUsers");
 
-        databaseReferencemv.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReferencevd.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ActiveUsers activeUsers = dataSnapshot.getValue(ActiveUsers.class);
                 CurrentNumber = activeUsers.getNumberactive();
                 ActiveUsers newdata = new ActiveUsers(CurrentNumber + 1);
-                databaseReferencemv.setValue(newdata);
+                databaseReferencevd.setValue(newdata);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ChatmvActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatvdActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
 
         super.onStart();
-        Toast.makeText(ChatmvActivity.this,"You have entered the Chatroom", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ChatvdActivity.this,"You have entered the Chatroom", Toast.LENGTH_SHORT).show();
 
     }
 
-
-
     @Override
     public void onStop(){
-        FirebaseAuth firebaseAuthdv = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabasemv = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReferencemv = firebaseDatabasemv.getReference("ActivemvUsers");
+        FirebaseAuth firebaseAuthvd = FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabasevd = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReferencevd = firebaseDatabasevd.getReference("ActivevdUsers");
 
-        databaseReferencemv.addValueEventListener(new ValueEventListener() {
+        databaseReferencevd.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ActiveUsers activeUsers = dataSnapshot.getValue(ActiveUsers.class);
@@ -172,16 +170,15 @@ public class ChatmvActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ChatmvActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatvdActivity.this, databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
 
         ActiveUsers newdata = new ActiveUsers(CurrentNumber - 1);
-        databaseReferencemv.setValue(newdata);
+        databaseReferencevd.setValue(newdata);
 
-        Toast.makeText(ChatmvActivity.this,"You have left the Chatroom", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ChatvdActivity.this,"You have left the Chatroom", Toast.LENGTH_SHORT).show();
         super.onStop();
     }
-
 
 }

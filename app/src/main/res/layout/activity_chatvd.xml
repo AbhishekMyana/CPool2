@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
-    tools:context=".ChatdvActivity">
-
+    tools:context=".ChatvdActivity">
 
     <ListView
         android:id="@+id/list_of_messages"
@@ -24,6 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.492" />
+
 
 
     <android.support.design.widget.TextInputLayout
@@ -54,29 +53,6 @@
 
     </android.support.design.widget.TextInputLayout>
 
-<!--
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:backgroundTint="@color/common_google_signin_btn_text_dark_pressed"
-        android:clickable="true"
-        android:focusable="true"
-        app:borderWidth="0dp"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.629"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.746"
-        app:srcCompat="@drawable/send_icon" />
--->
-
     <ImageButton
         android:id="@+id/sendbtn"
         android:layout_width="56dp"
@@ -104,17 +80,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"/>
 
-<!--
-    <TextClock
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
--->
 
 </android.support.constraint.ConstraintLayout>
