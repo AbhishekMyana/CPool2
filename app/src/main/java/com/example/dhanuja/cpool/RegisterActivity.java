@@ -55,7 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                SendUserData();
+                                FirebaseDatabase.getInstance().getReference("UserInfo").push().setValue(new UserProfile(user,uemail,uno));
+
                                 Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                                 startActivity(intent);
@@ -102,10 +103,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void SendUserData(){
+ /*   private void SendUserData(){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef= firebaseDatabase.getReference("UserInfo");
         UserProfile userProfile = new UserProfile(user , uemail, uno);
-        myRef.setValue(userProfile);
-    }
+        myRef.push(userProfile);
+    }*/
 }

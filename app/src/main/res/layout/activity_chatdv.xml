@@ -16,7 +16,6 @@
         android:layout_marginTop="24dp"
         android:divider="#000000"
         android:dividerHeight="4dp"
-        android:minHeight="60dp"
         android:stackFromBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

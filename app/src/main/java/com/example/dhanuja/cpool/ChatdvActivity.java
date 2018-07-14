@@ -12,6 +12,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -43,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class ChatdvActivity extends AppCompatActivity {
@@ -58,6 +60,8 @@ public class ChatdvActivity extends AppCompatActivity {
     DatabaseReference dref;
     ChatMessage chatMessage;
     private int CurrentNumber;
+    List<ChatMessage> chatMessageList;
+    List<ChatMessage> chatMessagesendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +78,13 @@ public class ChatdvActivity extends AppCompatActivity {
         send = (ImageButton)findViewById(R.id.sendbtn);
         activenumber = (TextView)findViewById(R.id.activeusers);
 
+        chatMessageList = new ArrayList<>();
+        chatMessagesendList = new ArrayList<>();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final ChatAdapter chatAdapter = new ChatAdapter(this,R.layout.list_item,chatMessageList);
+        final ChatAdapter chatAdaptersend = new ChatAdapter(this,R.layout.list_item_send,chatMessagesendList);
 
 //Active Users display - START
         FirebaseAuth firebaseAuthdv = FirebaseAuth.getInstance();
@@ -99,19 +109,20 @@ public class ChatdvActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         dref = firebaseDatabase.getReference("ChatdvActivity");
-        list = new ArrayList<>();
+     //   list = new ArrayList<>();
 
-        adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_text,list);
-        adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_user,list);
-        adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_time,list);
+        //adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_text,list);
+        //adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_user,list);
+        //adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_time,list);
 
-        listOfMessage.setAdapter(adapter);
+        listOfMessage.setAdapter(chatAdapter);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText input = (EditText)findViewById(R.id.input);
-                FirebaseDatabase.getInstance().getReference("ChatdvActivity").push().setValue(new ChatMessage(input.getText().toString(),
+                String message = new String(input.getText().toString());
+                FirebaseDatabase.getInstance().getReference("ChatdvActivity").push().setValue(new ChatMessage(message,
                         FirebaseAuth.getInstance().getCurrentUser().getEmail()));
 
                 input.setText("");
@@ -125,23 +136,19 @@ public class ChatdvActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                list.clear();
-                adapter.notifyDataSetChanged();
+                chatMessageList.clear();
+                chatAdapter.notifyDataSetChanged();
 
                 for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
                     chatMessage = ds.getValue(ChatMessage.class);
 
-                    String user = new String(chatMessage.getMessageUser().toString());
-                    String message = new String(chatMessage.getMessageText().toString());
-                    String time = new String(chatMessage.getSendTime().toString());
-
-                    String total1=new String("      " + user + " \n" + message + "\n                    " + time);
-                    list.add(total1);
+                    ChatMessage chatmessage= new ChatMessage("\n"+chatMessage.getMessageText().toString()+"\n" , chatMessage.getMessageUser().toString() , chatMessage.getSendTime().toString());
+                    chatMessageList.add(chatmessage);
 
                 }
 
-                listOfMessage.setAdapter(adapter);
+                listOfMessage.setAdapter(chatAdapter);
 
             }
 
@@ -152,6 +159,13 @@ public class ChatdvActivity extends AppCompatActivity {
         });
 
     }
+
+    //@SuppressWarnings("deprecation")
+    //public static String fromHtml(Spanned html){
+   //     String result;
+ //       result = Html.fromHtml();
+      //  return result;
+    //}
 
     @Override
     public void onStart(){

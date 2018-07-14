@@ -18,6 +18,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView pname,pemail,pphone;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase ;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +34,22 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference databaseReference = firebaseDatabase.getReference("UserInfo");
+        databaseReference = firebaseDatabase.getReference("UserInfo");
+
+
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
-                pname.setText("NAME : " + userProfile.getUserName());
-                pemail.setText("EMAIL ID : " + userProfile.getUsermail());
-                pphone.setText("MOBILE NUMBER : " + userProfile.getUserno());
+
+                for(DataSnapshot ds:dataSnapshot.getChildren()) {
+                    UserProfile userProfile = ds.getValue(UserProfile.class);
+                    if(userProfile.getUsermail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                        pname.setText("NAME : " + userProfile.getUserName());
+                        pemail.setText("EMAIL ID : " + userProfile.getUsermail());
+                        pphone.setText("MOBILE NUMBER : " + userProfile.getUserno());
+                    }
+                }
             }
 
             @Override

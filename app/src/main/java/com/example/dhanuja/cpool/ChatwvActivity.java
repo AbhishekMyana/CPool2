@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChatwvActivity extends AppCompatActivity {
 
@@ -33,6 +34,9 @@ public class ChatwvActivity extends AppCompatActivity {
     DatabaseReference dref;
     ChatMessage chatMessage;
     private int CurrentNumber;
+    List<ChatMessage> chatMessageList;
+    List<ChatMessage> chatMessagesendList;
+
 
 
     @Override
@@ -50,7 +54,13 @@ public class ChatwvActivity extends AppCompatActivity {
         send = (ImageButton)findViewById(R.id.sendbtn);
         activenumber = (TextView)findViewById(R.id.activeusers);
 
+        chatMessageList = new ArrayList<>();
+        chatMessagesendList = new ArrayList<>();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final ChatAdapter chatAdapter = new ChatAdapter(this,R.layout.list_item,chatMessageList);
+        final ChatAdapter chatAdaptersend = new ChatAdapter(this,R.layout.list_item_send,chatMessagesendList);
 
 //Active Users display - START
         FirebaseAuth firebaseAuthwv = FirebaseAuth.getInstance();
@@ -81,7 +91,7 @@ public class ChatwvActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_user,list);
         adapter = new ArrayAdapter<String>(this,R.layout.list_item,R.id.message_time,list);
 
-        listOfMessage.setAdapter(adapter);
+        listOfMessage.setAdapter(chatAdapter);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,23 +111,19 @@ public class ChatwvActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                list.clear();
-                adapter.notifyDataSetChanged();
+                chatMessageList.clear();
+                chatAdapter.notifyDataSetChanged();
 
                 for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
                     chatMessage = ds.getValue(ChatMessage.class);
 
-                    String user = new String(chatMessage.getMessageUser().toString());
-                    String message = new String(chatMessage.getMessageText().toString());
-                    String time = new String(chatMessage.getSendTime().toString());
-
-                    String total1=new String("      " + user + " \n" + message + "\n                    " + time);
-                    list.add(total1);
+                    ChatMessage chatmessage= new ChatMessage("\n"+chatMessage.getMessageText().toString()+"\n" , chatMessage.getMessageUser().toString() , chatMessage.getSendTime().toString());
+                    chatMessageList.add(chatmessage);
 
                 }
 
-                listOfMessage.setAdapter(adapter);
+                listOfMessage.setAdapter(chatAdapter);
 
             }
 

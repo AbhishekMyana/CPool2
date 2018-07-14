@@ -18,11 +18,18 @@ public class ChatMessage {
 
         messageTime = new Date().getTime();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy                                                                          hh:mm:ss a");
         Date now = new Date();
         sendTime = simpleDateFormat.format(now);
 
     }
+
+    public ChatMessage(String messageText , String messageUser , String sendTime){
+        this.messageText = messageText;
+        this.messageUser = messageUser;
+        this.sendTime = sendTime;
+    }
+
 
     public ChatMessage(){
 
