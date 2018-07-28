@@ -1,5 +1,6 @@
 package com.example.dhanuja.cpool;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -62,14 +63,19 @@ public class ChatdvActivity extends AppCompatActivity {
     private int CurrentNumber;
     List<ChatMessage> chatMessageList;
     List<ChatMessage> chatMessagesendList;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatdv);
 
+        progressDialog = new ProgressDialog(this);
         final ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        progressDialog.setMessage("Loading Messages");
+        progressDialog.show();
 
         messageText = (TextView) findViewById(R.id.message_text);
         messageUser = (TextView) findViewById(R.id.message_user);
@@ -96,7 +102,7 @@ public class ChatdvActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ActiveUsers activeUsers = dataSnapshot.getValue(ActiveUsers.class);
                 CurrentNumber = activeUsers.getNumberactive();
-                activenumber.setText("People active in this Chatroom : "+CurrentNumber);
+                activenumber.setText("People currently active in this Chatroom : "+CurrentNumber);
             }
 
             @Override
@@ -132,6 +138,8 @@ public class ChatdvActivity extends AppCompatActivity {
 
         chatMessage = new ChatMessage();
 
+
+
         dref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -148,8 +156,10 @@ public class ChatdvActivity extends AppCompatActivity {
 
                 }
 
+
                 listOfMessage.setAdapter(chatAdapter);
 
+                progressDialog.dismiss();
             }
 
             @Override

@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     app:layout_constraintVertical_weight="3"
+    android:background="@drawable/list_background"
     >
 
 
     <TextView
         android:id="@+id/message_user"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"

@@ -1,5 +1,6 @@
 package com.example.dhanuja.cpool;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class ChatwvActivity extends AppCompatActivity {
     private int CurrentNumber;
     List<ChatMessage> chatMessageList;
     List<ChatMessage> chatMessagesendList;
+    private ProgressDialog progressDialog;
 
 
 
@@ -43,6 +45,10 @@ public class ChatwvActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatwv);
+
+        progressDialog= new ProgressDialog(this);
+        progressDialog.setMessage("Loading Messages");
+        progressDialog.show();
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -72,7 +78,7 @@ public class ChatwvActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ActiveUsers activeUsers = dataSnapshot.getValue(ActiveUsers.class);
                 CurrentNumber = activeUsers.getNumberactive();
-                activenumber.setText("People active in this Chatroom : "+CurrentNumber);
+                activenumber.setText("People currently active in this Chatroom : "+CurrentNumber);
             }
 
             @Override
@@ -125,6 +131,7 @@ public class ChatwvActivity extends AppCompatActivity {
 
                 listOfMessage.setAdapter(chatAdapter);
 
+                progressDialog.dismiss();
             }
 
             @Override

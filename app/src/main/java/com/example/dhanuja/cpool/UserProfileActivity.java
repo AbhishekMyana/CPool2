@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     private TextView pname,pemail,pphone;
     private FirebaseAuth firebaseAuth;
@@ -25,15 +25,15 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_user_profile);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Profile");
+        progressDialog.show();
         pname = (TextView)findViewById(R.id.pnametxt);
         pemail = (TextView)findViewById(R.id.pemailtxt);
         pphone = (TextView)findViewById(R.id.pphonetxt);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading your Profile");
-        progressDialog.show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -41,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         databaseReference = firebaseDatabase.getReference("UserInfo");
 
+        final String message_user = getIntent().getStringExtra("message_user");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -49,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 for(DataSnapshot ds:dataSnapshot.getChildren()) {
                     UserProfile userProfile = ds.getValue(UserProfile.class);
-                    if(userProfile.getUsermail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+                    if(userProfile.getUsermail().equals(message_user)) {
                         pname.setText("NAME : " + userProfile.getUserName());
                         pemail.setText("EMAIL ID : " + userProfile.getUsermail());
                         pphone.setText("MOBILE NUMBER : " + userProfile.getUserno());
@@ -60,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ProfileActivity.this,databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfileActivity.this,databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
     }

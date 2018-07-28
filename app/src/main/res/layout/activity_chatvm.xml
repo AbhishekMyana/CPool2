@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp"
         android:layout_marginTop="24dp"
-        android:divider="#000000"
+        android:divider="#FFFFFF"
         android:dividerHeight="4dp"
         android:minHeight="60dp"
         android:stackFromBottom="true"
@@ -70,7 +70,7 @@
     <TextView
         android:id="@+id/activeusers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="22dp"
         android:background="#000000"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"/>
+        app:layout_constraintVertical_bias="0" />
 
 
 

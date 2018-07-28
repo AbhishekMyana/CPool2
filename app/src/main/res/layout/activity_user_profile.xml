@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/paper_bg"
-    tools:context=".ProfileActivity">
+    tools:context=".UserProfileActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -47,18 +47,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintVertical_bias="0.498" />
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="265dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:lineSpacingExtra="10sp"
-        android:text="@string/your_profile"
+        android:text="User's Profile"
         android:textColor="#ef670c"
         android:textSize="50sp"
         app:fontFamily="@font/denk_one"
@@ -102,4 +102,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pemailtxt"
         app:layout_constraintVertical_bias="0.2" />
+
 </android.support.constraint.ConstraintLayout>

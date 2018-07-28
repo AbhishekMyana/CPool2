@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp"
         android:layout_marginTop="24dp"
-        android:divider="#000000"
+        android:divider="#FFFFFF"
         android:dividerHeight="4dp"
         android:stackFromBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"

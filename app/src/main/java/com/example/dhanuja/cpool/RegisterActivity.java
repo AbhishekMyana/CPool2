@@ -1,5 +1,6 @@
 package com.example.dhanuja.cpool;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText repass;
     private FirebaseAuth firebaseAuth;
     String user,uemail,uno;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,16 @@ public class RegisterActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        progressDialog = new ProgressDialog(this);
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(validate()) {
+                    progressDialog.setMessage("Loading....");
+                    progressDialog.show();
                     user= username.getText().toString().trim();
                     uemail= mail.getText().toString().trim();
                     uno= phone.getText().toString().trim();
@@ -55,10 +62,12 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+
                                 FirebaseDatabase.getInstance().getReference("UserInfo").push().setValue(new UserProfile(user,uemail,uno));
 
                                 Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                progressDialog.dismiss();
                                 startActivity(intent);
                             }
                             else
@@ -69,6 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 phone.setText("");
                                 newpass.setText("");
                                 repass.setText("");
+                                progressDialog.dismiss();
 
                             }
                         }
